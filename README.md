@@ -4,8 +4,8 @@ This repository contains an end-to-end Machine Learning project designed to pred
 
 ## 👥 Group Members & Responsibilities
 
-| Name | ID | Primary Role |
-| :--- | :--- | :--- |
+| Name | ID |
+| :--- | :--- |
 | **Efrata Wolde** | UGR/1245/15 | 
 | **Fromsis Jafar** | UGR/0854/15 | 
 | **Hasset Dejene** | UGR/7979/15 | 
@@ -30,4 +30,5 @@ This repository contains an end-to-end Machine Learning project designed to pred
 │   └── 03_model_training.ipynb
 ├── app.py                  # Streamlit Web Application
 ├── requirements.txt        # Python dependencies
+
 └── README.md
