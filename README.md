@@ -32,3 +32,8 @@ This repository contains an end-to-end Machine Learning project designed to pred
 ├── requirements.txt        # Python dependencies
 
 └── README.md
+
+
+
+
+The deployed app link  :  https://used-car-price-prediction-xzh2egy4xcy8x45kzvm3rx.streamlit.app/
