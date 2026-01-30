@@ -2,6 +2,10 @@
 
 This repository contains an end-to-end Machine Learning project designed to predict the market value of used cars based on various technical and historical features. This project was completed as part of the **Machine Learning Lab Final Course Project**.
 
+### 🔗 Live Project Link
+You can access the deployed application here: 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://used-car-price-prediction-xzh2egy4xcy8x45kzvm3rx.streamlit.app/)
+
 ## 👥 Group Members & Responsibilities
 
 | Name | ID |
@@ -34,9 +38,8 @@ This repository contains an end-to-end Machine Learning project designed to pred
 └── README.md
 
 
-### 🔗 Live Project Link
-You can access the deployed application here: 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://used-car-price-prediction-xzh2egy4xcy8x45kzvm3rx.streamlit.app/)
+
+
 
 
 
