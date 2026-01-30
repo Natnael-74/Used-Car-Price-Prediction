@@ -85,3 +85,40 @@ with st.container():
         age = st.number_input("Car Age (Years)", 0, 30, 5)
         service = st.selectbox("Service History", ["Full", "Partial", "Unknown"])
         accidents = st.radio("Accidents Reported?", [0, 1], format_func=lambda x: "Yes" if x == 1 else "No")
+
+
+# 5. Prediction
+
+if st.button("Calculate Market Value"):
+    input_dict = {
+        "mileage_kmpl": mileage,
+        "engine_cc": engine,
+        "owner_count": owners,
+        "accidents_reported": accidents,
+        "car_age": age
+    }
+
+    df_input = pd.DataFrame([input_dict])
+    df_input[f"brand_{brand}"] = 1
+    df_input[f"fuel_type_{fuel}"] = 1
+    df_input[f"transmission_{transmission}"] = 1
+    df_input[f"service_history_{service}"] = 1
+
+    df_final = df_input.reindex(columns=features, fill_value=0)
+    X_scaled = scaler.transform(df_final)
+
+    # Predict
+    prediction = model.predict(X_scaled)[0]
+
+    # Result
+    st.markdown("---")
+    st.markdown(f"""
+        <div class="prediction-box">
+            <h2 style='color: #28a745;'>Estimated Value</h2>
+            <h1 style='font-size: 50px;'>${max(0, prediction):,.2f}</h1>
+            <p>Based on current market trends and vehicle condition.</p>
+        </div>
+    """, unsafe_allow_html=True)
+    
+    if prediction < 0:
+        st.warning("Note: The model predicts a negligible value based on the age/condition provided.")
