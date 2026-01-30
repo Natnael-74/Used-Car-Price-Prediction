@@ -35,3 +35,17 @@ st.markdown("""
     }
     </style>
     """, unsafe_allow_html=True)
+
+
+@st.cache_resource
+def load_assets():
+    model = joblib.load("models/model.pkl")
+    scaler = joblib.load("models/scaler.pkl")
+    features = joblib.load("models/features.pkl")
+    return model, scaler, features
+
+try:
+    model, scaler, features = load_assets()
+except Exception as e:
+    st.error(f"Error loading model files: {e}")
+    st.stop()
