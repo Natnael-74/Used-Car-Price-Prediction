@@ -36,5 +36,6 @@ This repository contains an end-to-end Machine Learning project designed to pred
 
 # 🚗 Used Car Price Prediction ML System
 
-**Live Demo:** [Click here to view the App](https://used-car-price-prediction-xzh2egy4xcy8x45kzvm3rx.streamlit.app/)
+**Live Demo : [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://your-app-link.streamlit.app)
+
 
