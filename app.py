@@ -125,25 +125,7 @@ if st.button("Calculate Market Value"):
     df_final = df_input.reindex(columns=features, fill_value=0)
     df_final = df_final.astype(float)
 
-    # Debug: show aligned input and scaler internals to help diagnose mismatches
-    st.write("__Debug: Model & Scaler Info__")
-    st.write("Model:", model.__class__.__name__)
-    if hasattr(model, "get_params"):
-        try:
-            st.write("Model params (sample):", {k: v for k, v in list(model.get_params().items())[:5]})
-        except Exception:
-            pass
-    if hasattr(model, "coef_"):
-        st.write("Model coef_ (first 10):", list(np.round(model.coef_[:10], 6)))
-    if hasattr(model, "feature_importances_"):
-        st.write("Feature importances (first 10):", list(np.round(model.feature_importances_[:10], 6)))
-
-    st.write("__Debug: Aligned input (unscaled)__")
-    st.write(df_final.T)
-    if hasattr(scaler, "mean_"):
-        st.write("__Debug: scaler.mean_ (first 20)__", list(np.round(scaler.mean_[:20], 6)))
-    if hasattr(scaler, "scale_"):
-        st.write("__Debug: scaler.scale_ (first 20)__", list(np.round(scaler.scale_[:20], 6)))
+    # (Debugging output removed for production)
 
     # Warn if features mismatch expected ordering
     try:
