@@ -90,6 +90,15 @@ with st.container():
 # 5. Prediction
 
 if st.button("Calculate Market Value"):
+    # Reload artifacts at prediction time to avoid stale cached objects
+    try:
+        model = joblib.load("models/model.pkl")
+        scaler = joblib.load("models/scaler.pkl")
+        features = joblib.load("models/features.pkl")
+    except Exception as e:
+        st.error(f"Error loading artifacts at prediction time: {e}")
+        st.stop()
+
     input_dict = {
         "mileage_kmpl": mileage,
         "engine_cc": engine,
@@ -117,12 +126,32 @@ if st.button("Calculate Market Value"):
     df_final = df_final.astype(float)
 
     # Debug: show aligned input and scaler internals to help diagnose mismatches
+    st.write("__Debug: Model & Scaler Info__")
+    st.write("Model:", model.__class__.__name__)
+    if hasattr(model, "get_params"):
+        try:
+            st.write("Model params (sample):", {k: v for k, v in list(model.get_params().items())[:5]})
+        except Exception:
+            pass
+    if hasattr(model, "coef_"):
+        st.write("Model coef_ (first 10):", list(np.round(model.coef_[:10], 6)))
+    if hasattr(model, "feature_importances_"):
+        st.write("Feature importances (first 10):", list(np.round(model.feature_importances_[:10], 6)))
+
     st.write("__Debug: Aligned input (unscaled)__")
     st.write(df_final.T)
     if hasattr(scaler, "mean_"):
-        st.write("__Debug: scaler.mean_ (first 10)__", list(scaler.mean_[:10]))
+        st.write("__Debug: scaler.mean_ (first 20)__", list(np.round(scaler.mean_[:20], 6)))
     if hasattr(scaler, "scale_"):
-        st.write("__Debug: scaler.scale_ (first 10)__", list(scaler.scale_[:10]))
+        st.write("__Debug: scaler.scale_ (first 20)__", list(np.round(scaler.scale_[:20], 6)))
+
+    # Warn if features mismatch expected ordering
+    try:
+        saved_features = joblib.load("models/features.pkl")
+        if list(saved_features) != list(features):
+            st.warning("Saved features list differs from expected features ordering.")
+    except Exception:
+        pass
 
     # Now scale and predict
     X_scaled = scaler.transform(df_final)
