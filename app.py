@@ -105,6 +105,26 @@ if st.button("Calculate Market Value"):
     df_input[f"service_history_{service}"] = 1
 
     df_final = df_input.reindex(columns=features, fill_value=0)
+    # Ensure features list is a plain Python list (robustness for saved types)
+    if not isinstance(features, list):
+        try:
+            features = list(features)
+        except Exception:
+            features = [str(f) for f in features]
+
+    # Reindex again with the cleaned features and ensure numeric dtype
+    df_final = df_input.reindex(columns=features, fill_value=0)
+    df_final = df_final.astype(float)
+
+    # Debug: show aligned input and scaler internals to help diagnose mismatches
+    st.write("__Debug: Aligned input (unscaled)__")
+    st.write(df_final.T)
+    if hasattr(scaler, "mean_"):
+        st.write("__Debug: scaler.mean_ (first 10)__", list(scaler.mean_[:10]))
+    if hasattr(scaler, "scale_"):
+        st.write("__Debug: scaler.scale_ (first 10)__", list(scaler.scale_[:10]))
+
+    # Now scale and predict
     X_scaled = scaler.transform(df_final)
 
     # Predict
