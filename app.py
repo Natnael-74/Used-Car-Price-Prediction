@@ -8,7 +8,7 @@ import numpy as np
 # title
 st.set_page_config(
     page_title="Used Car Price Predictor",
-    page_icon="🚗",
+    page_icon=" 🚗 ",
     layout="wide"
 )
 
